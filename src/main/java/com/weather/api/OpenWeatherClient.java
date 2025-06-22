@@ -12,9 +12,11 @@ import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor
@@ -66,9 +68,11 @@ public class OpenWeatherClient {
     }
 
     private URI uriByCityName(String city) throws URISyntaxException {
+        String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
+
         return new URI(
                 String.format("https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric",
-                        city, apiKey)
+                        encodedCity, apiKey)
         );
     }
 

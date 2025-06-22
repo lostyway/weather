@@ -43,19 +43,15 @@
                         <img th:src="${location.picturePath}" class="card-img-top img-fluid" alt="Weather icon">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title" th:text="${location.city + ', ' + location.countryCode}">City, CC</h5>
-                            <p class="card-text mb-1" th:text="|Temperature: ${location.temperature}°C|">Temperature: 0°C</p>
-                            <p class="card-text mb-1" th:text="|Feels like: ${location.feelsLike}°C|">Feels like: 0°C</p>
-                            <p class="card-text mb-1" th:text="|Description: ${location.description}|">Description</p>
-                            <p class="card-text mb-1" th:text="|Humidity: ${location.humidity}%|">Humidity: 0%</p>
+                            <p class="card-text mb-1" th:text="|Latitude: ${location.latitude}|">Latitude: 0°</p>
+                            <p class="card-text mb-1" th:text="|Longitude: ${location.longitude}|">Longitude: 0°</p>
                             <div class="mt-auto">
                                 <form th:action="@{/locations/add}" method="post">
                                     <input type="hidden" name="city" th:value="${location.city}"/>
                                     <input type="hidden" name="countryCode" th:value="${location.countryCode}"/>
-                                    <input type="hidden" name="temperature" th:value="${location.temperature}"/>
-                                    <input type="hidden" name="feelsLike" th:value="${location.feelsLike}"/>
-                                    <input type="hidden" name="description" th:value="${location.description}"/>
-                                    <input type="hidden" name="humidity" th:value="${location.humidity}"/>
-                                    <input type="hidden" name="picturePath" th:value="${location.picturePath}"/>
+                                    <input type="hidden" name="latitude" th:value="${location.latitude}"/>
+                                    <input type="hidden" name="longitude" th:value="${location.longitude}"/>
+                                    <input type="hidden" name="longitude" th:value="${location.picturePath}"/>
                                     <button type="submit" class="btn btn-primary w-100">Add</button>
                                 </form>
                             </div>

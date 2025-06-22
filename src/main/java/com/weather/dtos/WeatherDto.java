@@ -13,7 +13,6 @@ import lombok.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherDto extends BasicLocationDto {
     private Long id;
-    @NotNull private String picturePath;
     @NotNull private String description;
     @NotNull private Integer feelsLike;
     @NotNull private Integer temperature;

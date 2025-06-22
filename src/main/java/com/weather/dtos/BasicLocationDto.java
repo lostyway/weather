@@ -15,5 +15,6 @@ import lombok.ToString;
 public class BasicLocationDto {
     @NotNull protected String city;
     @NotNull protected String countryCode;
+    @NotNull protected String picturePath;
 
 }

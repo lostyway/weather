@@ -21,9 +21,10 @@ public interface WeatherApiMapper {
 
     @Mapping(source = "dto.name", target = "city")
     @Mapping(source = "dto.sys.country", target = "countryCode")
-    @Mapping(source = "latitude", target = "latitude")
-    @Mapping(source = "longitude", target = "longitude")
-    LocationDto toLocationDto(WeatherApiResponseDto dto, Double latitude, Double longitude);
+    @Mapping(source = "dto.coord.lat", target = "latitude")
+    @Mapping(source = "dto.coord.lon", target = "longitude")
+    @Mapping(expression = "java(dto.getWeather() != null && !dto.getWeather().isEmpty() ? \"https://openweathermap.org/img/wn/\" + dto.getWeather().get(0).getIcon() + \"@4x.png\" : null)", target = "picturePath")
+    LocationDto toLocationDto(WeatherApiResponseDto dto);
 
     @Mapping(source = "latitude", target = "latitude")
     @Mapping(source = "longitude", target = "longitude")
