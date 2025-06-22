@@ -10,9 +10,12 @@
 <body>
 
 <div class="container text-center mt-5">
-    <h1 class="display-4">Oops! Something Went Wrong</h1>
-    <p class="lead">We're sorry, but an unexpected error has occurred. Please try again later.</p>
-    <a class="btn btn-primary" href="#">Go to Home</a>
+    <h1 class="display-4" th:text="${errorTitle} ?: 'Unexpected Error'">Unexpected Error</h1>
+    <p class="lead" th:text="${errorMessage} ?: 'We are sorry, but something went wrong. Please try again later.'">
+        Default fallback error message.
+    </p>
+    <a class="btn btn-primary" href="/" >Go to Home</a>
+
 </div>
 
 </body>
