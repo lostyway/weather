@@ -11,12 +11,12 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="src/main/resources/static/images/weather-app.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            <img src="images/weather-app.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
             Weather Tracker
         </a>
         <div class="d-flex align-items-center">
-            <span class="navbar-text me-3"></span>
-            <button class="btn btn-outline-danger">Sign out</button>
+            <span class="navbar-text me-3" th:text="${username}">Гость</span>
+            <a class="btn btn-outline-danger" href="/user/logout">Sign out</a>
         </div>
     </div>
 </nav>

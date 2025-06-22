@@ -2,6 +2,7 @@ package com.weather.controller;
 
 import com.weather.dtos.UserDto;
 import com.weather.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,5 +47,11 @@ public class UserController {
             model.addAttribute("registrationError", e.getMessage());
             return "sign-up";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:sign-in";
     }
 }
