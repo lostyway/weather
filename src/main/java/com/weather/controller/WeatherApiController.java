@@ -70,4 +70,11 @@ public class WeatherApiController {
         locationService.saveLocation(location);
         return "redirect:/";
     }
+
+    @PostMapping("/locations/delete/{id}")
+    public String deleteLocation(@PathVariable("id") Long id, @AuthenticationPrincipal User user) {
+        UserEntity userFromDb = userService.findByLogin(user.getUsername());
+        locationService.deleteByIdAndUser(id, userFromDb);
+        return "redirect:/";
+    }
 }

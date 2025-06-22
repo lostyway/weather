@@ -42,7 +42,9 @@
                      th:each="location : ${locations}">
                     <div class="card h-100 position-relative weather-card">
                         <div class="position-absolute weather-card-delete-form">
-                            <button class="btn-close" aria-label="Delete"></button>
+                            <form th:action="@{/locations/delete/{id}(id=${location.id})}" method="post">
+                                <button type="submit" class="btn-close" aria-label="Delete"></button>
+                            </form>
                         </div>
                         <img class="card-img-top img-fluid"
                              th:src="${location.picturePath}"

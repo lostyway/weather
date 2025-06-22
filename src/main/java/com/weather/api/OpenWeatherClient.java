@@ -1,7 +1,6 @@
 package com.weather.api;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.weather.dtos.LocationDto;
 import com.weather.dtos.WeatherDto;
 import com.weather.dtos.weatherApiResponseDto.WeatherApiMapper;
 import com.weather.dtos.weatherApiResponseDto.WeatherApiResponseDto;
@@ -32,18 +31,11 @@ public class OpenWeatherClient {
     public WeatherDto fetchWeatherDto(Location location) {
         try {
             WeatherApiResponseDto apiResponseDto = requestToOpenWeatherWithLocation(location);
-            return weatherMapper.toWeatherDto(apiResponseDto);
+            WeatherDto dto = weatherMapper.toWeatherDto(apiResponseDto);
+            dto.setId(location.getId());
+            return dto;
         } catch (Exception e) {
             throw new OpenWeatherException("Не получилось получить погоду в по этой локации");
-        }
-    }
-
-    public LocationDto fetchLocationDto(Location location) {
-        try {
-            WeatherApiResponseDto apiResponseDto = requestToOpenWeatherWithLocation(location);
-            return weatherMapper.toLocationDto(apiResponseDto, location.getLatitude(), location.getLongitude());
-        } catch (Exception e) {
-            throw new OpenWeatherException("Не получилось получить город по этой локации");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.weather.service;
 
+import com.weather.exceptions.OpenWeatherException;
 import com.weather.model.Location;
 import com.weather.model.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,12 @@ public class LocationService {
 
     public void saveLocation(Location location) {
         locationRepository.save(location);
+    }
+
+    public void deleteByIdAndUser(Long id, UserEntity user) {
+        Location location = locationRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new OpenWeatherException("Локация не была найдена или не принадлежит пользователю"));
+
+        locationRepository.delete(location);
     }
 }
