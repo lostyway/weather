@@ -14,4 +14,5 @@ public class WeatherApiResponseDto {
     private Main main;
     private Sys sys;
     private String name;
+    private Coord coord;
 }

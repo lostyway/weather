@@ -14,8 +14,6 @@ import lombok.*;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LocationDto extends BasicLocationDto {
-    @NotNull
-    private String state;
 
     @Min(-90)
     @Max(90)

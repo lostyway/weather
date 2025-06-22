@@ -8,4 +8,6 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Coord {
+    private Double lon;
+    private Double lat;
 }
