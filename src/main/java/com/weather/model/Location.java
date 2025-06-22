@@ -2,10 +2,7 @@ package com.weather.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
@@ -13,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Location {
 
     @Id

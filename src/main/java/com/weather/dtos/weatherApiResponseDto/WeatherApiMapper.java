@@ -28,5 +28,6 @@ public interface WeatherApiMapper {
     @Mapping(source = "latitude", target = "latitude")
     @Mapping(source = "longitude", target = "longitude")
     @Mapping(source = "user", target = "user")
+    @Mapping(target = "id", ignore = true)
     Location toLocation(WeatherApiResponseDto dto, Double latitude, Double longitude, UserEntity user);
 }
