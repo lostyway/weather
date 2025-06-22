@@ -14,8 +14,16 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/user/**",       // разрешаем всё под /user (sign-in, sign-up)
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/static/**"
+                        ).permitAll()
+                        .requestMatchers(
                                 "/locations/add",
-                                "/locations/delete/{id}").authenticated()
+                                "/locations/delete/{id}"
+                        ).authenticated()
                         .anyRequest().permitAll())
                 .formLogin(form -> form
                         .loginPage("/user/sign-in")

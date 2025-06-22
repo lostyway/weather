@@ -17,6 +17,7 @@ import java.util.Objects;
 public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+    private final Integer LOGIN_PASSWORD_MIN_LENGTH = 3;
 
     @Transactional
     @Override
@@ -31,6 +32,16 @@ public class UserService implements IUserService {
 
     @Transactional(readOnly = true)
     protected void validateUserData(UserDto userDto) throws UsernameNotFoundException, IllegalArgumentException {
+        if (userDto.getUsername() == null
+                || userDto.getPassword() == null
+                || userDto.getPassword().isEmpty()
+                || userDto.getUsername().isEmpty()
+                || userDto.getUsername().length() < LOGIN_PASSWORD_MIN_LENGTH
+                || userDto.getPassword().length() < LOGIN_PASSWORD_MIN_LENGTH) {
+
+            throw new IllegalArgumentException("Неправильные данные для регистрации");
+        }
+
         if (!Objects.equals(userDto.getPassword(), userDto.getRepeatPassword())) {
             throw new IllegalArgumentException("Пароли не совпадают");
         }
