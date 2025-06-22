@@ -1,7 +1,9 @@
 package com.weather.controller;
 
+import com.weather.api.OpenWeatherClient;
 import com.weather.dtos.LocationDto;
-import com.weather.model.Location;
+import com.weather.model.UserEntity;
+import com.weather.service.UserService;
 import com.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,17 +20,22 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/")
-public class WeatherController {
+public class WeatherApiController {
 
+    private final OpenWeatherClient openWeatherClient;
     private final WeatherService weatherService;
+    private final UserService userService;
 
     //todo Доделать реализацию API
 
     @GetMapping("/")
     public String index(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("username", user.getUsername());
-        //List<LocationDto> locations = weatherService.findCitiesByUser(user);
+
+        UserEntity userFromDb = userService.findByLogin(user.getUsername());
+        List<LocationDto> locations = weatherService.findWeatherByUser(userFromDb);
         model.addAttribute("locations", locations);
+
         return "index";
     }
 

@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
-import java.math.BigDecimal;
-
 @Entity
 @Table(name = "locations")
 @Data
@@ -25,13 +23,13 @@ public class Location {
     @Length(min = 3, max = 100)
     private String name;
 
-    private BigDecimal latitude;
+    private Double latitude;
 
-    private BigDecimal longitude;
+    private Double longitude;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     @JsonIgnore
-    private User user;
+    private UserEntity user;
 }
