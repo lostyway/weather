@@ -30,21 +30,26 @@ public class WeatherApiController {
 
     @GetMapping("/")
     public String showUserLocations(Model model, @AuthenticationPrincipal User user) {
-        model.addAttribute("username", user.getUsername());
+        if (user == null) {
+            model.addAttribute("username", null);
+            model.addAttribute("user", List.of());
+        } else {
+            model.addAttribute("username", user.getUsername());
 
-        UserEntity userFromDb = userService.findByLogin(user.getUsername());
-        List<Location> locationsList = locationService.getLocationsByUser(userFromDb);
-        var locations = locationsList.stream()
-                .map(openWeatherClient::fetchWeatherDto)
-                .toList();
-        model.addAttribute("locations", locations);
+            UserEntity userFromDb = userService.findByLogin(user.getUsername());
+            List<Location> locationsList = locationService.getLocationsByUser(userFromDb);
+            var locations = locationsList.stream()
+                    .map(openWeatherClient::fetchWeatherDto)
+                    .toList();
+            model.addAttribute("locations", locations);
 
+        }
         return "index";
     }
 
     @GetMapping("/search")
     public String search(Model model, @AuthenticationPrincipal User user, @RequestParam("name") String city) {
-        model.addAttribute("username", user.getUsername());
+        model.addAttribute("username", user == null ? null : user.getUsername());
         WeatherApiResponseDto apiDto = openWeatherClient.fetchByCityName(city.trim());
         LocationDto location = weatherApiMapper.toLocationDto(apiDto);
         model.addAttribute("location", location);
@@ -53,6 +58,10 @@ public class WeatherApiController {
 
     @PostMapping("/locations/add")
     public String addLocation(@AuthenticationPrincipal User user, @ModelAttribute LocationDto locationForm) {
+        if (user == null) {
+            return "redirect:/user/sign-in";
+        }
+
         String city = locationForm.getCity();
         UserEntity userFromDb = userService.findByLogin(user.getUsername());
 
@@ -72,6 +81,10 @@ public class WeatherApiController {
 
     @PostMapping("/locations/delete/{id}")
     public String deleteLocation(@PathVariable("id") Long id, @AuthenticationPrincipal User user) {
+        if (user == null) {
+            return "redirect:/user/sign-in";
+        }
+
         UserEntity userFromDb = userService.findByLogin(user.getUsername());
         locationService.deleteByIdAndUser(id, userFromDb);
         return "redirect:/";

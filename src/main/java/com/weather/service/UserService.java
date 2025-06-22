@@ -18,6 +18,7 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
+    @Transactional
     @Override
     public void register(UserDto userDto) {
         validateUserData(userDto);
@@ -28,7 +29,8 @@ public class UserService implements IUserService {
         userRepository.save(user);
     }
 
-    private void validateUserData(UserDto userDto) throws UsernameNotFoundException, IllegalArgumentException {
+    @Transactional(readOnly = true)
+    protected void validateUserData(UserDto userDto) throws UsernameNotFoundException, IllegalArgumentException {
         if (!Objects.equals(userDto.getPassword(), userDto.getRepeatPassword())) {
             throw new IllegalArgumentException("Пароли не совпадают");
         }
@@ -43,6 +45,7 @@ public class UserService implements IUserService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserEntity findByLogin(String login) {
         return userRepository.findByLogin(login)

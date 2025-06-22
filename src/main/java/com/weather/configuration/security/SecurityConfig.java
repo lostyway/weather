@@ -13,13 +13,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/**",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/static/**",
-                                "/style.css").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers(
+                                "/locations/add",
+                                "/locations/delete/{id}").authenticated()
+                        .anyRequest().permitAll())
                 .formLogin(form -> form
                         .loginPage("/user/sign-in")
                         .defaultSuccessUrl("/", true)

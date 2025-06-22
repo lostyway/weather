@@ -15,8 +15,14 @@
             Weather Tracker
         </a>
         <div class="d-flex align-items-center">
-            <span class="navbar-text me-3" th:text="${username}">Гость</span>
-            <a class="btn btn-outline-danger" href="/user/logout">Sign out</a>
+            <div th:if="${username != null}">
+                <span class="navbar-text me-3" th:text="${username}">Гость</span>
+                <a class="btn btn-outline-danger" href="/user/logout">Выйти</a>
+            </div>
+            <div th:unless="${username != null}">
+                <a class="btn btn-outline-primary me-2" href="/user/sign-in">Войти</a>
+                <a class="btn btn-outline-success" href="/user/sign-up-page">Регистрация</a>
+            </div>
         </div>
     </div>
 </nav>
