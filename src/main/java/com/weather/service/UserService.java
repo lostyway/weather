@@ -39,6 +39,7 @@ public class UserService implements IUserService {
                 throw new IllegalArgumentException("Пользователь уже существует");
             }
         } catch (UsernameNotFoundException ignored) {
+            //съедаем исключение
         }
     }
 
