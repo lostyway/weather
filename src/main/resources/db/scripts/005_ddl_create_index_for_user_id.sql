@@ -1,0 +1,1 @@
+create index idx_user_id on locations(user_id)

@@ -39,7 +39,7 @@ public class UserController {
         try {
             UserDto userDto = new UserDto(username, password, repeatPassword);
             userService.register(userDto);
-            return "redirect:/sign-in";
+            return "redirect:/user/sign-in";
         } catch (ConstraintViolationException e) {
             model.addAttribute("registrationError", "Длина логина или пароля меньше 3");
             return "sign-up";
